@@ -5,17 +5,16 @@ import cv2
 from blind_watermark import WaterMark
 
 bwm = WaterMark(password_wm=1, password_img=1)
-# 读取原图
+# Read source
 bwm.read_img(filename='pic/ori_img.jpeg')
-# 读取水印
+# Read watermark
 bwm.read_wm('pic/watermark.png')
-# 打上盲水印
+# Embed blind watermark
 bwm.embed('output/embedded.png')
 wm_shape = cv2.imread('pic/watermark.png', flags=cv2.IMREAD_GRAYSCALE).shape
 
-# %% 解水印
-
+# %% Extracting watermark
 
 bwm1 = WaterMark(password_wm=1, password_img=1)
-# 注意需要设定水印的长宽wm_shape
+# You must set width and height of extracted watermark in wm_shape
 bwm1.extract('output/embedded.png', wm_shape=wm_shape, out_wm_name='output/wm_extracted.png', mode='img')
